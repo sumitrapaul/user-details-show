@@ -2,16 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
 import axios from "axios";
-import { Card, Modal, Spinner } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 
 function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedUsers, setSelectedUsers] = useState(null);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const usersData = () => {
@@ -35,6 +31,7 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
+            <h5 className="mt-3 text-center">User Details</h5>
             {loading ? (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -44,9 +41,8 @@ function App() {
                 {users.map((user) => (
                   <div
                     style={{ cursor: "pointer" }}
-                    className="my-3"
+                    className="my-3 d-flex justify-content-between"
                     key={user.id}
-                    onClick={handleShow}
                   >
                     <Card
                       onClick={() => handleUser(user)}
@@ -65,30 +61,27 @@ function App() {
                         </Card.Title>
                       </Card.Body>
                     </Card>
+                    {selectedUsers && selectedUsers.id == user.id && (
+                      <Card
+                        style={{ width: "18rem", backgroundColor: "#f3e8ff" }}
+                      >
+                        <Card.Body className="text-center">
+                          <Card.Title>
+                          Name: {user.profile.firstName} {user.profile.lastName}
+                          </Card.Title>
+                          <p><span className="fw-semibold">Email: </span>{selectedUsers.profile.email}</p>
+                          <p><span className="fw-semibold">Bio: </span>{selectedUsers.Bio}</p>
+                          <p><span className="fw-semibold">Title: </span>{selectedUsers.jobTitle}</p>
+                        </Card.Body>
+                      </Card>
+                    )}
                   </div>
                 ))}
               </div>
             ) : null}
           </div>
 
-          <div className="col-md-6">
-            {selectedUsers && (
-              <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
-                <Modal.Header closeButton>
-                  <Modal.Title>
-                    {" "}
-                    {selectedUsers.profile.firstName}{" "}
-                    {selectedUsers.profile.lastName}
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <p>{selectedUsers.profile.email}</p>
-                  <p>{selectedUsers.Bio}</p>
-                  <p>{selectedUsers.jobTitle}</p>
-                </Modal.Body>
-              </Modal>
-            )}
-          </div>
+         
         </div>
       </div>
     </>
