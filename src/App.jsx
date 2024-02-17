@@ -2,13 +2,16 @@ import { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
 import axios from "axios";
-import { Card, Spinner } from "react-bootstrap";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Card, Modal, Spinner } from "react-bootstrap";
 
 function App() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedUsers, setSelectedUsers] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const usersData = () => {
@@ -31,31 +34,37 @@ function App() {
     <>
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-12">
             {loading ? (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : users.length > 0 ? (
-              <div className="list-group">
+              <div>
                 {users.map((user) => (
                   <div
+                    style={{ cursor: "pointer" }}
+                    className="my-3"
                     key={user.id}
-                    className="list-group-item "
-                    onClick={() => handleUser(user)}
+                    onClick={handleShow}
                   >
-                    <div className="d-flex justify-content-center align-items-center">
-                      <img
-                        style={{
-                          width: "240px",
-                          height: "130px",
-                          borderRadius: "50%",
-                        }}
+                    <Card
+                      onClick={() => handleUser(user)}
+                      style={{ width: "18rem", backgroundColor: "#f3e8ff" }}
+                    >
+                      <Card.Img
+                        variant="top"
+                        style={{ borderRadius: "50%" }}
+                        className="w-100 h-100"
                         src={user.avatar}
                         alt="No data to show"
                       />
-                    </div>
-                    <p>{user.profile.username}</p>
+                      <Card.Body>
+                        <Card.Title className="text-center">
+                          {user.profile.username}
+                        </Card.Title>
+                      </Card.Body>
+                    </Card>
                   </div>
                 ))}
               </div>
@@ -64,19 +73,20 @@ function App() {
 
           <div className="col-md-6">
             {selectedUsers && (
-              <Card>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    {selectedUsers.profile.firstName}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
+              <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+                <Modal.Header closeButton>
+                  <Modal.Title>
+                    {" "}
+                    {selectedUsers.profile.firstName}{" "}
                     {selectedUsers.profile.lastName}
-                  </ListGroup.Item>
-                  <ListGroup.Item>{selectedUsers.profile.email}</ListGroup.Item>
-                  <ListGroup.Item>{selectedUsers.Bio}</ListGroup.Item> 
-                  <ListGroup.Item>{selectedUsers.jobTitle}</ListGroup.Item>
-                </ListGroup>
-              </Card>
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>{selectedUsers.profile.email}</p>
+                  <p>{selectedUsers.Bio}</p>
+                  <p>{selectedUsers.jobTitle}</p>
+                </Modal.Body>
+              </Modal>
             )}
           </div>
         </div>
