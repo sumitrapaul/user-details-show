@@ -44,14 +44,14 @@ function App() {
                     className="my-3 d-flex justify-content-between"
                     key={user.id}
                   >
-                    <Card
+                    <Card 
                       onClick={() => handleUser(user)}
-                      style={{ width: "18rem", backgroundColor: "#f3e8ff" }}
+                      style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f3e8ff" }}
                     >
                       <Card.Img
                         variant="top"
-                        style={{ borderRadius: "50%" }}
-                        className="w-100 h-100"
+                        style={{ borderRadius: "50%", padding: "60px" }}
+                        className="w-100 h-auto"
                         src={user.avatar}
                         alt="No data to show"
                       />
@@ -61,9 +61,9 @@ function App() {
                         </Card.Title>
                       </Card.Body>
                     </Card>
-                    {selectedUsers && selectedUsers.id == user.id && (
-                      <Card
-                        style={{ width: "18rem", backgroundColor: "#f3e8ff" }}
+                    {selectedUsers && selectedUsers.profile.username === user.profile.username && (
+                      <Card 
+                        style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f3e8ff" }}
                       >
                         <Card.Body className="text-center">
                           <Card.Title>
