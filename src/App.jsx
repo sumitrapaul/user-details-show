@@ -73,8 +73,8 @@ function App() {
                     {selectedUsers.profile.lastName}
                   </ListGroup.Item>
                   <ListGroup.Item>{selectedUsers.profile.email}</ListGroup.Item>
-                  {/* <ListGroup.Item>{selectedUsers.Bio}</ListGroup.Item> */}
-                  {/* <ListGroup.Item>{selectedUsers.jobTitle}</ListGroup.Item> */}
+                  <ListGroup.Item>{selectedUsers.Bio}</ListGroup.Item> 
+                  <ListGroup.Item>{selectedUsers.jobTitle}</ListGroup.Item>
                 </ListGroup>
               </Card>
             )}
