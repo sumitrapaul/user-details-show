@@ -31,7 +31,7 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <h5 className="mt-3 text-center">User Details</h5>
+            <h5 className="mt-3 text-center">User Information</h5>
             {loading ? (
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
