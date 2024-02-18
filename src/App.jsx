@@ -46,7 +46,7 @@ function App() {
                   >
                     <Card 
                       onClick={() => handleUser(user)}
-                      style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f3e8ff" }}
+                      style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f5f3ff" }}
                     >
                       <Card.Img
                         variant="top"
@@ -63,7 +63,7 @@ function App() {
                     </Card>
                     {selectedUsers && selectedUsers.profile.username === user.profile.username && (
                       <Card 
-                        style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f3e8ff" }}
+                        style={{ width: "100%", maxWidth: "18rem", backgroundColor: "#f5f3ff" }}
                       >
                         <Card.Body className="text-center">
                           <Card.Title>
